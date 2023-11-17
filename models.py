@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -16,7 +15,7 @@ class LabelNode(BaseModel):
 
 
 class Labels(BaseModel):
-    nodes: List[LabelNode]
+    nodes: list[LabelNode]
 
 
 class IssueNode(BaseModel):
@@ -28,31 +27,31 @@ class IssueNode(BaseModel):
 
 
 class Issues(BaseModel):
-    nodes: List[IssueNode]
+    nodes: list[IssueNode]
 
 
 class RepositoryNode(BaseModel):
     name: str
-    description: Optional[str]
+    description: str | None
     url: str
     updatedAt: datetime
     issues: Issues
 
 
 class Repositories(BaseModel):
-    nodes: List[RepositoryNode]
+    nodes: list[RepositoryNode]
 
 
 class OrganizationNode(BaseModel):
     avatarUrl: str
     name: str
-    description: Optional[str]
+    description: str | None
     url: str
     repositories: Repositories
 
 
 class Organizations(BaseModel):
-    nodes: List[OrganizationNode]
+    nodes: list[OrganizationNode]
 
 
 class User(BaseModel):
