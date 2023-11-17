@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import requests
-
 import streamlit as st
 
 from models import ResponseModel
