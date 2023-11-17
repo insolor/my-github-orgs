@@ -29,8 +29,6 @@ def get_data(login: str) -> ResponseModel:
 
 if __name__ == "__main__":
     # Only for testing in dev environment
-    import json
-
     from rich import print
 
     data = get_data("insolor")
