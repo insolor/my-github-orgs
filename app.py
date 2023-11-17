@@ -19,18 +19,20 @@ with st.spinner():
     for org in organizations:
         row = dict(
             image=org["avatar_url"],
-            name=org["login"], 
+            name=org["login"],
             description=org["description"],
         )
-        
+
         response = requests.get(org["url"])
         response.raise_for_status()
         org_info = response.json()
-        
+
         row["url"] = org_info["html_url"]
-        
+
         # data.append(row)
-        markdown += f"""- <img src="{row["image"]}" width=24> [{row["name"]}]({row["url"]})\n"""
+        markdown += (
+            f"""- <img src="{row["image"]}" width=24> [{row["name"]}]({row["url"]})\n"""
+        )
 
 st.markdown(markdown, unsafe_allow_html=True)
 
