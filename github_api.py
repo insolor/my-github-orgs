@@ -26,8 +26,8 @@ def get_data(api_token: str):
 
 if __name__ == "__main__":
     # Only for testing in dev environment
-    from pprint import pprint
+    import json
 
     from decouple import config
     token = config("GITHUB_TOKEN")
-    pprint(get_data(token))
+    print(json.dumps(get_data(token), ensure_ascii=False, indent=2))
