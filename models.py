@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import datetime
 
 from typing import List, Optional
 
@@ -23,7 +24,7 @@ class IssueNode(BaseModel):
     author: Author
     url: str
     labels: Labels
-    updatedAt: str
+    updatedAt: datetime
 
 
 class Issues(BaseModel):
@@ -34,7 +35,7 @@ class RepositoryNode(BaseModel):
     name: str
     description: Optional[str]
     url: str
-    updatedAt: str
+    updatedAt: datetime
     issues: Issues
 
 
