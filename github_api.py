@@ -2,8 +2,10 @@ from pathlib import Path
 
 import requests
 
+from models import ResponseModel
 
-def get_data(api_token: str):
+
+def get_data(api_token: str) -> ResponseModel:
     current_dir = Path(__file__).parent
 
     with open(current_dir / "get_data.graphql") as file:
@@ -21,7 +23,7 @@ def get_data(api_token: str):
 
     r = requests.post(url=url, json=json, headers=headers)
     r.raise_for_status()
-    return r.json()
+    return ResponseModel.parse_obj(r.json())
 
 
 if __name__ == "__main__":
@@ -29,5 +31,8 @@ if __name__ == "__main__":
     import json
 
     from decouple import config
+    from rich import print
+    
     token = config("GITHUB_TOKEN")
-    print(json.dumps(get_data(token), ensure_ascii=False, indent=2))
+    data = get_data(token)
+    print(data)

@@ -12,6 +12,7 @@ pydantic = "^2.5.1"
 
 [tool.poetry.group.dev.dependencies]
 python-decouple = "^3.8"
+rich = "^13.7.0"
 
 [build-system]
 requires = ["poetry-core"]
