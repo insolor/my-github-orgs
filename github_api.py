@@ -1,5 +1,6 @@
-import requests
 from pathlib import Path
+
+import requests
 
 
 def get_data(api_token: str):
@@ -16,7 +17,7 @@ def get_data(api_token: str):
         }
     }
 
-    headers = {"Authorization": f"token {api_token}"}
+    headers = {"Authorization": "token " + api_token}
 
     r = requests.post(url=url, json=json, headers=headers)
     r.raise_for_status()
@@ -24,7 +25,9 @@ def get_data(api_token: str):
 
 
 if __name__ == "__main__":
+    # Only for testing in dev environment
     from pprint import pprint
+
     from decouple import config
     token = config("GITHUB_TOKEN")
     pprint(get_data(token))
