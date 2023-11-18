@@ -1,9 +1,10 @@
 import io
 
-import pandas as pd
 import streamlit as st
 
 import github_api
+
+st.set_page_config(page_title="My Github Organizations")
 
 with st.spinner("Getting data..."):
     user_data = github_api.get_data("insolor")
