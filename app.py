@@ -1,4 +1,5 @@
 import io
+from contextlib import redirect_stdout
 
 import streamlit as st
 
@@ -9,21 +10,20 @@ st.set_page_config(page_title="My Github Organizations")
 with st.spinner("Getting data..."):
     user_data = github_api.get_data("insolor")
 
-markdown = io.StringIO()
+with redirect_stdout(io.StringIO()) as markdown:
+    for org in user_data.organizations.nodes:
+        if org.description:
+            print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url} "{org.description}")""")
+        else:
+            print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""")
 
-for org in user_data.organizations.nodes:
-    if org.description:
-        print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url} "{org.description}")""", file=markdown)
-    else:
-        print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""", file=markdown)
-    
-    if org.repositories.nodes:
-        print("### Repositories", file=markdown)
-        
-        for repo in org.repositories.nodes:
-            if repo.description:
-                print(f"""- [{repo.name}]({repo.url} "{repo.description}")""", file=markdown)
-            else:
-                print(f"- [{repo.name}]({repo.url})", file=markdown)
+        if org.repositories.nodes:
+            print("### Repositories")
+
+            for repo in org.repositories.nodes:
+                if repo.description:
+                    print(f"""- [{repo.name}]({repo.url} "{repo.description}")""")
+                else:
+                    print(f"- [{repo.name}]({repo.url})")
 
 st.markdown(markdown.getvalue(), unsafe_allow_html=True)
