@@ -1,3 +1,5 @@
+import io
+
 import pandas as pd
 import streamlit as st
 
@@ -7,32 +9,21 @@ with st.spinner("Getting data..."):
     user_data = github_api.get_data("insolor")
 
 
-data = []
-markdown = ""
+markdown = io.StringIO()
 
-with st.spinner():
-    for org in user_data.organizations.nodes:
+for org in user_data.organizations.nodes:
+    print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""", file=markdown)
+    
+    if org.description:
+        print(org.description, end="\n\n", file=markdown)
+    
+    if org.repositories.nodes:
+        print("### Repositories", file=markdown)
         
-        row = dict(
-            image=org.avatarUrl,
-            name=org.name,
-            description=org.description,
-            url=org.url,
-        )
+        for repo in org.repositories.nodes:
+            if repo.description:
+                print(f"- [{repo.name}]({repo.url}): {repo.description}", file=markdown)
+            else:
+                print(f"- [{repo.name}]({repo.url})", file=markdown)
 
-        data.append(row)
-        markdown += (
-            f"""- <img src="{row["image"]}" width=16> [{row["name"]}]({row["url"]})\n"""
-        )
-
-st.markdown(markdown, unsafe_allow_html=True)
-
-df = pd.DataFrame(data)
-
-st.data_editor(
-    df,
-    column_config={
-        "image": st.column_config.ImageColumn(),
-        "url": st.column_config.LinkColumn(),
-    }
-)
+st.markdown(markdown.getvalue(), unsafe_allow_html=True)
