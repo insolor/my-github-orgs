@@ -13,13 +13,11 @@ with st.spinner("Getting data..."):
 with redirect_stdout(io.StringIO()) as markdown:
     for org in user_data.organizations.nodes:
         if org.description:
-            print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url} "{org.description}")""")
+            print(f"""### <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url} "{org.description}")""")
         else:
-            print(f"""## <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""")
+            print(f"""### <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""")
 
         if org.repositories.nodes:
-            print("### Repositories")
-
             for repo in org.repositories.nodes:
                 if repo.description:
                     print(f"""- [{repo.name}]({repo.url} "{repo.description}")""")
