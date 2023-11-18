@@ -1,48 +1,38 @@
-import requests
+import pandas as pd
 import streamlit as st
 
-headers = {
-    # 'Accept': 'application/vnd.github+json',
-    # 'Authorization': 'Bearer <YOUR-TOKEN>',
-    # 'X-GitHub-Api-Version': '2022-11-28',
-}
+import github_api
 
-response = requests.get("https://api.github.com/users/insolor/orgs", headers=headers)
-response.raise_for_status()
 
-organizations = response.json()
+user_data = github_api.get_data("insolor")
+
 
 data = []
 markdown = ""
 
 with st.spinner():
-    for org in organizations:
+    for org in user_data.organizations.nodes:
+        
         row = dict(
-            image=org["avatar_url"],
-            name=org["login"],
-            description=org["description"],
+            image=org.avatarUrl,
+            name=org.name,
+            description=org.description,
+            url=org.url,
         )
 
-        response = requests.get(org["url"])
-        response.raise_for_status()
-        org_info = response.json()
-
-        row["url"] = org_info["html_url"]
-
-        # data.append(row)
+        data.append(row)
         markdown += (
-            f"""- <img src="{row["image"]}" width=24> [{row["name"]}]({row["url"]})\n"""
+            f"""- <img src="{row["image"]}" width=16> [{row["name"]}]({row["url"]})\n"""
         )
 
 st.markdown(markdown, unsafe_allow_html=True)
 
+df = pd.DataFrame(data)
 
-# df = pd.DataFrame(data)
-
-# st.data_editor(
-#     df,
-#     column_config={
-#         "image": st.column_config.ImageColumn(),
-#         "url": st.column_config.LinkColumn(),
-#     }
-# )
+st.data_editor(
+    df,
+    column_config={
+        "image": st.column_config.ImageColumn(),
+        "url": st.column_config.LinkColumn(),
+    }
+)
