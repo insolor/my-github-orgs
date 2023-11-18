@@ -1,3 +1,4 @@
+from datetime import timedelta
 import io
 from contextlib import redirect_stdout
 
@@ -7,8 +8,13 @@ import github_api
 
 st.set_page_config(page_title="My Github Organizations")
 
-with st.spinner("Getting data..."):
-    user_data = github_api.get_data("insolor")
+
+@st.cache_data(show_spinner="Getting data...", ttl=timedelta(minutes=30))
+def get_data(login: str):
+    return github_api.get_data(login)
+
+
+user_data = get_data("insolor")
 
 with redirect_stdout(io.StringIO()) as markdown:
     for org in user_data.organizations.nodes:
