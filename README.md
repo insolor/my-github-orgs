@@ -1,5 +1,7 @@
 # My Github Organizations
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://my-app-orgs-4g8z75nsqvaqhkgxhxquug.streamlit.app)
+
 Installation:
 ```
 poetry install --no-root
