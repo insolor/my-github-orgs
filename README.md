@@ -1,6 +1,6 @@
 # My Github Organizations
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://insolor-my-app-orgs.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://insolor-my-gh-orgs.streamlit.app)
 
 Installation:
 ```
