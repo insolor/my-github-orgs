@@ -1,5 +1,33 @@
 query getUserOrgs($login: String!) {
   user(login: $login) {
+    repositories(
+      privacy: PUBLIC
+      first: 10
+      orderBy: {field: UPDATED_AT, direction: DESC}
+    ) {
+      nodes {
+        name
+        description
+        url
+        updatedAt
+        issues(states: OPEN, first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
+          nodes {
+            title
+            author {
+              login
+            }
+            url
+            labels(first: 5, orderBy: {field: NAME, direction: ASC}) {
+              nodes {
+                name
+                color
+              }
+            }
+            updatedAt
+          }
+        }
+      }
+    }
     organizations(first: 10) {
       nodes {
         avatarUrl
@@ -23,7 +51,7 @@ query getUserOrgs($login: String!) {
                   login
                 }
                 url
-                labels (first: 5, orderBy: {field: NAME, direction: ASC}) {
+                labels(first: 5, orderBy: {field: NAME, direction: ASC}) {
                   nodes {
                     name
                     color

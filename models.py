@@ -55,6 +55,7 @@ class Organizations(BaseModel):
 
 
 class User(BaseModel):
+    repositories: Repositories
     organizations: Organizations
 
 
@@ -62,5 +63,23 @@ class Data(BaseModel):
     user: User
 
 
+class Extensions(BaseModel):
+    saml_failure: bool
+
+
+class Location(BaseModel):
+    line: int
+    column: int
+
+
+class Error(BaseModel):
+    type: str
+    path: list[int | str]
+    extensions: Extensions
+    locations: list[Location]
+    message: str
+
+
 class ResponseModel(BaseModel):
     data: Data
+    errors: list[Error] | None = None
