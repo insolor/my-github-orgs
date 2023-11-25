@@ -5,7 +5,7 @@ from datetime import timedelta
 import streamlit as st
 
 import github_api
-from models import User
+from models import OrganizationNode, User
 
 st.set_page_config(page_title="My Github Organizations")
 
@@ -17,15 +17,18 @@ def get_data(login: str) -> User:
 
 user_data = get_data("insolor")
 
-with redirect_stdout(io.StringIO()) as markdown:
-    for org in user_data.organizations.nodes:
-        if org.description:
-            print(f"""### <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url} "{org.description}")""")
-        else:
-            print(f"""### <img src="{org.avatarUrl}" width=24> [{org.name}]({org.url})""")
+nodes = user_data.organizations.nodes.copy()
+nodes.insert(0, user_data)
 
-        if org.repositories.nodes:
-            for repo in org.repositories.nodes:
+with redirect_stdout(io.StringIO()) as markdown:
+    for item in nodes:
+        if isinstance(item, OrganizationNode) and item.description:
+            print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
+        else:
+            print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url})""")
+
+        if item.repositories.nodes:
+            for repo in item.repositories.nodes:
                 if repo.description:
                     print(f"""- [{repo.name}]({repo.url} "{repo.description}")""")
                 else:
