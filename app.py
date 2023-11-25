@@ -1,4 +1,5 @@
 import io
+import itertools
 from contextlib import redirect_stdout
 from datetime import timedelta
 
@@ -20,25 +21,28 @@ user_data = get_data("insolor")
 nodes = user_data.organizations.nodes.copy()
 nodes.insert(0, user_data)
 
-with redirect_stdout(io.StringIO()) as markdown:
-    for item in nodes:
-        if isinstance(item, OrganizationNode) and item.description:
-            print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
-        else:
-            print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url})""")
+columns = st.columns(2)
 
-        for repo in item.repositories.nodes:
-            if repo.description:
-                print(f"""- [{repo.name}]({repo.url} "{repo.description}")""", end="")
+for item, column in zip(nodes, itertools.cycle(columns)):
+    with column:
+        with redirect_stdout(io.StringIO()) as markdown:
+            if isinstance(item, OrganizationNode) and item.description:
+                print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
             else:
-                print(f"- [{repo.name}]({repo.url})", end="")
+                print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url})""")
 
-            if repo.isFork:
-                print(" (fork)", end="")
-            
-            if repo.stargazerCount:
-                print(f" :star:{repo.stargazerCount}", end="")
-            
-            print()
+            for repo in item.repositories.nodes:
+                if repo.description:
+                    print(f"""- [{repo.name}]({repo.url} "{repo.description}")""", end="")
+                else:
+                    print(f"- [{repo.name}]({repo.url})", end="")
 
-st.markdown(markdown.getvalue(), unsafe_allow_html=True)
+                if repo.isFork:
+                    print(" (fork)", end="")
+
+                if repo.stargazerCount:
+                    print(f" :star:{repo.stargazerCount}", end="")
+
+                print()
+
+        st.markdown(markdown.getvalue(), unsafe_allow_html=True)
