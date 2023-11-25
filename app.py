@@ -27,11 +27,15 @@ with redirect_stdout(io.StringIO()) as markdown:
         else:
             print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url})""")
 
-        if item.repositories.nodes:
-            for repo in item.repositories.nodes:
-                if repo.description:
-                    print(f"""- [{repo.name}]({repo.url} "{repo.description}")""")
-                else:
-                    print(f"- [{repo.name}]({repo.url})")
+        for repo in item.repositories.nodes:
+            if repo.description:
+                print(f"""- [{repo.name}]({repo.url} "{repo.description}")""", end="")
+            else:
+                print(f"- [{repo.name}]({repo.url})", end="")
+
+            if repo.stargazerCount:
+                print(f" :star:{repo.stargazerCount}")
+            else:
+                print()
 
 st.markdown(markdown.getvalue(), unsafe_allow_html=True)

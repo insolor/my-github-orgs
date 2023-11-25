@@ -14,11 +14,8 @@ query getUserOrgs($login: String!) {
         description
         url
         updatedAt
-        issues(
-          states: OPEN,
-          first: 10,
-          orderBy: {field: UPDATED_AT, direction: DESC}
-        ) {
+        stargazerCount
+        issues(states: OPEN, first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
           nodes {
             title
             author {
@@ -52,11 +49,8 @@ query getUserOrgs($login: String!) {
             description
             url
             updatedAt
-            issues(
-              states: OPEN,
-              first: 10,
-              orderBy: {field: UPDATED_AT, direction: DESC}
-            ) {
+            stargazerCount
+            issues(states: OPEN, first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
               nodes {
                 title
                 author {

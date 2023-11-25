@@ -35,6 +35,7 @@ class RepositoryNode(BaseModel):
     description: str | None
     url: str
     updatedAt: datetime
+    stargazerCount: int
     issues: Issues
 
 
