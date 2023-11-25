@@ -36,6 +36,7 @@ class RepositoryNode(BaseModel):
     url: str
     updatedAt: datetime
     stargazerCount: int
+    isFork: bool
     issues: Issues
 
 

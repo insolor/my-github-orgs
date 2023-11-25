@@ -33,9 +33,12 @@ with redirect_stdout(io.StringIO()) as markdown:
             else:
                 print(f"- [{repo.name}]({repo.url})", end="")
 
+            if repo.isFork:
+                print(" (fork)", end="")
+            
             if repo.stargazerCount:
-                print(f" :star:{repo.stargazerCount}")
-            else:
-                print()
+                print(f" :star:{repo.stargazerCount}", end="")
+            
+            print()
 
 st.markdown(markdown.getvalue(), unsafe_allow_html=True)
