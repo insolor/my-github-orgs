@@ -7,6 +7,7 @@ query getUserOrgs($login: String!) {
     repositories(
       privacy: PUBLIC
       ownerAffiliations: OWNER
+      isArchived: false
       first: 10
       orderBy: {field: UPDATED_AT, direction: DESC}
     ) {
@@ -43,6 +44,7 @@ query getUserOrgs($login: String!) {
         url
         repositories(
           privacy: PUBLIC
+          isArchived: false
           first: 10
           orderBy: {field: UPDATED_AT, direction: DESC}
         ) {
