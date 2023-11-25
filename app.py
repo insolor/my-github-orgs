@@ -21,10 +21,10 @@ user_data = get_data("insolor")
 nodes = user_data.organizations.nodes.copy()
 nodes.insert(0, user_data)
 
-columns = st.columns(2)
+tabs = st.tabs([str(node) for node in nodes])
 
-for item, column in zip(nodes, itertools.cycle(columns)):
-    with column:
+for item, tab in zip(nodes, tabs):
+    with tab:
         with redirect_stdout(io.StringIO()) as markdown:
             if isinstance(item, OrganizationNode) and item.description:
                 print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
