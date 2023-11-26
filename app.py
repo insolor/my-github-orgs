@@ -41,7 +41,8 @@ if user_data:
 
                 for repo in item.repositories.nodes:
                     if repo.description:
-                        print(f"""- [{repo.name}]({repo.url} "{repo.description}")""", end="")
+                        description = repo.description.replace('"', r"\"")
+                        print(f"""- [{repo.name}]({repo.url} "{description}")""", end="")
                     else:
                         print(f"- [{repo.name}]({repo.url})", end="")
 
