@@ -30,10 +30,10 @@ if selected:
     item = names_map[selected]
     with st.empty():
         with redirect_stdout(io.StringIO()) as markdown:
-            if isinstance(item, OrganizationNode) and item.description:
-                print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
+            if isinstance(item, OrganizationNode) and item.name:
+                print(f"""### <img src="{item.avatarUrl}" width=24> [{item.login}]({item.url} "{item.name}")""")
             else:
-                print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url})""")
+                print(f"""### <img src="{item.avatarUrl}" width=24> [{item.login}]({item.url})""")
 
             for repo in item.repositories.nodes:
                 if repo.description:
