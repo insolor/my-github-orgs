@@ -13,14 +13,21 @@ query getUserOrgs($login: String!) {
     ) {
       nodes {
         name
+        nameWithOwner
         description
         url
         updatedAt
         pushedAt
         stargazerCount
-        isFork
         issues {
           totalCount
+        }
+        parent {
+          name
+          nameWithOwner
+          description
+          url
+          stargazerCount
         }
       }
     }
@@ -39,14 +46,21 @@ query getUserOrgs($login: String!) {
         ) {
           nodes {
             name
+            nameWithOwner
             description
             url
             updatedAt
             pushedAt
             stargazerCount
-            isFork
             issues {
               totalCount
+            }
+            parent {
+              name
+              nameWithOwner
+              description
+              url
+              stargazerCount
             }
           }
         }

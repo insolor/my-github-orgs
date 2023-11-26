@@ -33,13 +33,14 @@ class Issues(BaseModel):
 
 class RepositoryNode(BaseModel):
     name: str
+    nameWithOwner: str
     description: str | None
     url: str
-    updatedAt: datetime
-    pushedAt: datetime
+    updatedAt: datetime | None = None
+    pushedAt: datetime | None = None
     stargazerCount: int
-    isFork: bool
-    issues: Issues
+    issues: Issues | None = None
+    parent: RepositoryNode | None = None
 
 
 class Repositories(BaseModel):

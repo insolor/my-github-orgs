@@ -46,11 +46,12 @@ if user_data:
                     else:
                         print(f"- [{repo.name}]({repo.url})", end="")
 
-                    if repo.isFork:
-                        print(" (fork)", end="")
-
                     if repo.stargazerCount:
                         print(f" :star:{repo.stargazerCount}", end="")
+
+                    if repo.parent:
+                        parent = repo.parent
+                        print(f" (fork of [{parent.nameWithOwner}]({parent.url}))", end="")
 
                     print()
 
