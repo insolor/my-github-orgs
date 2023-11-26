@@ -18,16 +18,17 @@ class Labels(BaseModel):
     nodes: list[LabelNode]
 
 
-class IssueNode(BaseModel):
-    title: str
-    author: Author
-    url: str
-    labels: Labels
-    updatedAt: datetime
+# class IssueNode(BaseModel):
+#     title: str
+#     author: Author
+#     url: str
+#     labels: Labels
+#     updatedAt: datetime
 
 
 class Issues(BaseModel):
-    nodes: list[IssueNode]
+    # nodes: list[IssueNode]
+    totalCount: int
 
 
 class RepositoryNode(BaseModel):
@@ -35,6 +36,7 @@ class RepositoryNode(BaseModel):
     description: str | None
     url: str
     updatedAt: datetime
+    pushedAt: datetime
     stargazerCount: int
     isFork: bool
     issues: Issues
@@ -83,7 +85,7 @@ class Data(BaseModel):
 
 
 class Extensions(BaseModel):
-    saml_failure: bool
+    saml_failure: bool | None = None
 
 
 class Location(BaseModel):
@@ -92,13 +94,13 @@ class Location(BaseModel):
 
 
 class Error(BaseModel):
-    type: str
-    path: list[int | str]
+    type: str | None = None
+    path: list[int | str] | None = None
     extensions: Extensions
     locations: list[Location]
     message: str
 
 
 class ResponseModel(BaseModel):
-    data: Data
+    data: Data | None = None
     errors: list[Error] | None = None

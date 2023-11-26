@@ -8,31 +8,19 @@ query getUserOrgs($login: String!) {
       privacy: PUBLIC
       ownerAffiliations: OWNER
       isArchived: false
-      first: 10
-      orderBy: {field: UPDATED_AT, direction: DESC}
+      first: 20
+      orderBy: {field: PUSHED_AT, direction: DESC}
     ) {
       nodes {
         name
         description
         url
         updatedAt
+        pushedAt
         stargazerCount
         isFork
-        issues(states: OPEN, first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
-          nodes {
-            title
-            author {
-              login
-            }
-            url
-            labels(first: 5, orderBy: {field: NAME, direction: ASC}) {
-              nodes {
-                name
-                color
-              }
-            }
-            updatedAt
-          }
+        issues {
+          totalCount
         }
       }
     }
@@ -46,31 +34,19 @@ query getUserOrgs($login: String!) {
         repositories(
           privacy: PUBLIC
           isArchived: false
-          first: 10
-          orderBy: {field: UPDATED_AT, direction: DESC}
+          first: 20
+          orderBy: {field: PUSHED_AT, direction: DESC}
         ) {
           nodes {
             name
             description
             url
             updatedAt
+            pushedAt
             stargazerCount
             isFork
-            issues(states: OPEN, first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
-              nodes {
-                title
-                author {
-                  login
-                }
-                url
-                labels(first: 5, orderBy: {field: NAME, direction: ASC}) {
-                  nodes {
-                    name
-                    color
-                  }
-                }
-                updatedAt
-              }
+            issues {
+              totalCount
             }
           }
         }

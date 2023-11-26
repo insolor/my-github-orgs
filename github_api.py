@@ -3,10 +3,10 @@ from pathlib import Path
 import requests
 import streamlit as st
 
-from models import ResponseModel, User
+from models import Error, ResponseModel, User
 
 
-def get_data(login: str) -> User:
+def get_data(login: str) -> tuple[User, list[Error] | None]:
     api_token = st.secrets["GITHUB_TOKEN"]
 
     current_dir = Path(__file__).parent
@@ -22,14 +22,17 @@ def get_data(login: str) -> User:
 
     headers = dict(Authorization="token " + api_token)
 
-    r = requests.post(url=url, json=request_params, headers=headers)
-    r.raise_for_status()
-    return ResponseModel.model_validate(r.json()).data.user
+    response = requests.post(url=url, json=request_params, headers=headers)
+    response.raise_for_status()
+
+    model = ResponseModel.model_validate(response.json())
+    return model.data.user if model.data else None, model.errors
 
 
 if __name__ == "__main__":
     # Only for testing in dev environment
     from rich import print
 
-    data = get_data("insolor")
+    data, errors = get_data("insolor")
     print(data)
+    print(errors)
