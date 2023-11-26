@@ -39,6 +39,7 @@ query getUserOrgs($login: String!) {
     organizations(first: 10) {
       nodes {
         avatarUrl
+        login
         name
         description
         url

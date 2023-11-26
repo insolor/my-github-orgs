@@ -22,7 +22,7 @@ user_data = get_data("insolor")
 nodes = user_data.organizations.nodes.copy()
 nodes.insert(0, user_data)
 
-names_map = {str(node): node for node in nodes}
+names_map = {str(node.login): node for node in nodes}
 
 selected = option_menu(None, list(names_map.keys()), menu_icon="cast", default_index=0, orientation="vertical")
 

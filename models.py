@@ -46,13 +46,17 @@ class Repositories(BaseModel):
 
 class OrganizationNode(BaseModel):
     avatarUrl: str
+    login: str
     name: str
     description: str | None = None
     url: str
     repositories: Repositories
 
     def __str__(self):
-        return self.name
+        if self.login != self.name:
+            return f"{self.login} ({self.name})"
+        else:
+            return self.login
 
 
 class Organizations(BaseModel):
