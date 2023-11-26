@@ -47,7 +47,7 @@ if user_data:
                         print(f"- [{repo.name}]({repo.url})", end="")
 
                     if repo.stargazerCount:
-                        print(f" :star:{repo.stargazerCount}", end="")
+                        print(f" ☆{repo.stargazerCount}", end="")
 
                     if repo.parent:
                         parent = repo.parent
