@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from datetime import timedelta
 
 import streamlit as st
+from streamlit_option_menu import option_menu
 
 import github_api
 from models import OrganizationNode, User
@@ -21,10 +22,13 @@ user_data = get_data("insolor")
 nodes = user_data.organizations.nodes.copy()
 nodes.insert(0, user_data)
 
-tabs = st.tabs([str(node) for node in nodes])
+names_map = {str(node): node for node in nodes}
 
-for item, tab in zip(nodes, tabs):
-    with tab:
+selected = option_menu(None, list(names_map.keys()), menu_icon="cast", default_index=0, orientation="vertical")
+
+if selected:
+    item = names_map[selected]
+    with st.empty():
         with redirect_stdout(io.StringIO()) as markdown:
             if isinstance(item, OrganizationNode) and item.description:
                 print(f"""### <img src="{item.avatarUrl}" width=24> [{item}]({item.url} "{item.description}")""")
