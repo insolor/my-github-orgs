@@ -13,6 +13,14 @@ Running:
 poe run
 ```
 
+## Configuration:
+
+Secrets:
+- `USER_LOGIN` - your user login
+- `GITHUB_TOKEN` - your github personal access token, it can be generated here: https://github.com/settings/tokens
+
+    At the moment a token for the application doesn't need any special rights, you can just generate a classic token with all cleared checkboxes.
+
 ## TODO:
 
 - [x] get info about organizations and their repositories
