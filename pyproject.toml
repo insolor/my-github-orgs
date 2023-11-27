@@ -13,6 +13,7 @@ streamlit-option-menu = "^0.3.6"
 
 [tool.poetry.group.dev.dependencies]
 rich = "^13.7.0"
+ariadne-codegen = "^0.10.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -26,3 +27,7 @@ line-length = 120
 
 [tool.isort]
 profile = "black"
+
+[tool.ariadne-codegen]
+schema_path = "schema.docs.graphql"
+queries_path = "get_data.graphql"
