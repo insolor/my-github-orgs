@@ -16,7 +16,7 @@ def get_data(login: str) -> tuple[User, list[Error] | None]:
     return github_api.get_data(login)
 
 
-user_data, errors = get_data("insolor")
+user_data, errors = get_data(st.secrets["USER_LOGIN"])
 
 if errors:
     for error in errors:
