@@ -31,9 +31,14 @@ class Issues(BaseModel):
     totalCount: int
 
 
+class RepositoryOwner(BaseModel):
+    login: str
+
+
 class RepositoryNode(BaseModel):
     name: str
     nameWithOwner: str
+    owner: RepositoryOwner | None = None
     description: str | None
     url: str
     updatedAt: datetime | None = None

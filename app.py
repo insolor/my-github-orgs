@@ -31,25 +31,34 @@ if user_data:
     selected = option_menu(None, list(names_map.keys()), menu_icon="cast", default_index=0, orientation="vertical")
 
     if selected:
-        item = names_map[selected]
+        user_or_org = names_map[selected]
         with st.empty():
             with redirect_stdout(io.StringIO()) as markdown:
-                if isinstance(item, OrganizationNode) and item.name:
-                    print(f"""### <img src="{item.avatarUrl}" width=24> [{item.login}]({item.url} "{item.name}")""")
+                if isinstance(user_or_org, OrganizationNode) and user_or_org.name:
+                    print(f"""### <img src="{user_or_org.avatarUrl}" width=24> [{user_or_org.login}]({user_or_org.url} "{user_or_org.name}")""")
                 else:
-                    print(f"""### <img src="{item.avatarUrl}" width=24> [{item.login}]({item.url})""")
+                    print(f"""### <img src="{user_or_org.avatarUrl}" width=24> [{user_or_org.login}]({user_or_org.url})""")
 
-                for repo in item.repositories.nodes:
+                for repo in user_or_org.repositories.nodes:
+                    owner = repo.owner
+                    if owner and owner.login != user_or_org.login and owner.login in names_map:
+                        continue
+                    
+                    own_repository = repo.owner is None or repo.owner.login == user_or_org.login
+                    repo_name = repo.name if own_repository else repo.nameWithOwner
+                    
                     if repo.description:
                         description = repo.description.replace('"', r"\"")
-                        print(f"""- [{repo.name}]({repo.url} "{description}")""", end="")
+                        print(f"""- [{repo_name}]({repo.url} "{description}")""", end="")
                     else:
-                        print(f"- [{repo.name}]({repo.url})", end="")
+                        print(f"- [{repo_name}]({repo.url})", end="")
 
                     if repo.stargazerCount:
                         print(f" ☆{repo.stargazerCount}", end="")
 
-                    if repo.parent:
+                    if not own_repository:
+                        print(" (outside collaborator)", end="")
+                    elif repo.parent:
                         parent = repo.parent
                         print(f" (fork of [{parent.nameWithOwner}]({parent.url}))", end="")
 

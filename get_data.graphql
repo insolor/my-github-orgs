@@ -6,14 +6,16 @@ query getUserOrgs($login: String!) {
     url
     repositories(
       privacy: PUBLIC
-      ownerAffiliations: OWNER
       isArchived: false
-      first: 20
+      first: 30
       orderBy: {field: PUSHED_AT, direction: DESC}
     ) {
       nodes {
         name
         nameWithOwner
+        owner {
+          login
+        }
         description
         url
         updatedAt
