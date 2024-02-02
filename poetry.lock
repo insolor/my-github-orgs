@@ -1123,13 +1123,13 @@ snowflake = ["snowflake-connector-python (>=2.8.0)", "snowflake-snowpark-python 
 
 [[package]]
 name = "streamlit-option-menu"
-version = "0.3.6"
+version = "0.3.12"
 description = "streamlit-option-menu is a simple Streamlit component that allows users to select a single item from a list of options in a menu."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "streamlit-option-menu-0.3.6.tar.gz", hash = "sha256:4f02faadf4d1d1e9a00c3740a2ebd8a3f105a2cdf63fdc0e34cf01ef7267e9de"},
-    {file = "streamlit_option_menu-0.3.6-py3-none-any.whl", hash = "sha256:d051af217ff1e4513e2cc6f3c79ccd4b34d77390b16c34711032e998d41e9850"},
+    {file = "streamlit-option-menu-0.3.12.tar.gz", hash = "sha256:a954241cf188691f17072cf3ceb59e97f106f7492ddb5b79c4d42906758a5af2"},
+    {file = "streamlit_option_menu-0.3.12-py3-none-any.whl", hash = "sha256:f83045da205f83464e6606a80facfec2cde49fe750e1148eb275c88ddcca35b9"},
 ]
 
 [package.dependencies]
@@ -1325,4 +1325,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d679c0650dc6e3bebe2f020989e0f67a6989b36c4244043132611413d3356673"
+content-hash = "466c4932040ee2248c6e659bd3e5686d4c5a09c532ba36ae8d6c5299e210c4c0"
