@@ -26,4 +26,5 @@ Secrets:
 - [x] get info about organizations and their repositories
 - [x] show the info as markdown
 - [x] show info about user's repos as a separate card
+- [ ] autogenerate models from the schema
 - [ ] show info about all issues of an organization
