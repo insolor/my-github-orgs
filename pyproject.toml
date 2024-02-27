@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "my-github-organizations"
+name = "my-github-orgs"
 version = "0.1.0"
 description = ""
 authors = ["insolor <insolor@gmail.com>"]
@@ -13,6 +13,7 @@ streamlit-option-menu = "^0.3.12"
 
 [tool.poetry.group.dev.dependencies]
 rich = "^13.7.0"
+pytest = "^8.0.2"
 
 [build-system]
 requires = ["poetry-core"]

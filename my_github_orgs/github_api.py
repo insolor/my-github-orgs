@@ -3,7 +3,7 @@ from pathlib import Path
 import requests
 import streamlit as st
 
-from models import Error, ResponseModel, User
+from .models import Error, ResponseModel, User
 
 
 def get_data(login: str) -> tuple[User, list[Error] | None]:

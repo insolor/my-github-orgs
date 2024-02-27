@@ -5,8 +5,8 @@ from datetime import timedelta
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-import github_api
-from models import Error, OrganizationNode, User
+import my_github_orgs.github_api
+from my_github_orgs.models import Error, OrganizationNode, User
 
 st.set_page_config(page_title="My Github Organizations")
 
