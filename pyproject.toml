@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.10"
 streamlit = "^1.35.0"
 pydantic = "^2.7.2"
-streamlit-option-menu = "^0.3.12"
+streamlit-option-menu = "^0.3.13"
 
 [tool.poetry.group.dev.dependencies]
 rich = "^13.7.1"
