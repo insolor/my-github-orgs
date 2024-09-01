@@ -12,7 +12,7 @@ pydantic = "^2.8.2"
 streamlit-option-menu = "^0.3.13"
 
 [tool.poetry.group.dev.dependencies]
-rich = "^13.7.1"
+rich = "^13.8.0"
 
 [build-system]
 requires = ["poetry-core"]
